@@ -9,14 +9,20 @@ class Seminaire{
     private $date;
     private $id_interveant;
 
-    public function __construct( $id,  $titre,  $resumer,  $lieu,  $date,  $id_interveant){
-    $this->id = $id;
-    $this->titre = $titre;
-    $this->resumer = $resumer;
-    $this->lieu = $lieu;
-    $this->date = $date;
-    $this->id_interveant = $id_interveant;
-}
+    public function __construct(array $data = []){
+
+		foreach($data as $key => $value){
+			//création des set...
+			$methode = "set" . ucfirst($key);
+
+			//test si le setter existe
+			if( method_exists($this, $methode) ){
+				//appel du setter et on passe le '$value' en paramètre
+				$this->$methode($value);
+			}
+		}
+	}
+
 	public function getId() {return $this->id;}
 
 	public function getTitre() {return $this->titre;}
@@ -29,6 +35,7 @@ class Seminaire{
 
 	public function getIdInterveant() {return $this->id_interveant;}
 
+    
 	public function setId( $id): void {$this->id = $id;}
 
 	public function setTitre( $titre): void {$this->titre = $titre;}

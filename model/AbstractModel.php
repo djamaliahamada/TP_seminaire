@@ -12,6 +12,16 @@ abstract class AbstractModel{
         ]);
     }
 
-    
+    public function executerReq($query, array $params = []){
+        $stmt = $this->pdo->prepare($query);
+
+        foreach($params as $cle => $valeur){
+            $params[$cle] = htmlentities($valeur);
+        }
+
+        $stmt->execute($params);
+
+        return $stmt;
+    }
 
 }

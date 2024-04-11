@@ -2,14 +2,25 @@
 
 class SeminaireModel extends AbstractModel{
 
+    public function getAllSeminaire(){
+        $stmt = $this->executerReq("SELECT * FROM seminaire");
 
-    public function AjouterSeminaire{
+        $tab = [] ;
 
+        while($res = $stmt->fetch()){
+            extract($res);
+            $semi = new Seminaire();
+            $semi->setId($id);
+            $semi->setTitre( $titre);
+            $semi->setResumer( $resumer);
+            $semi->setLieu( $lieu);
+            $semi->setDate( $date);
+            $semi->setIdInterveant( $id_interveant);
 
-        return true;
+            $tab[] = $semi;
+        }
 
+        return $tab;
     }
-
-
 }
 
