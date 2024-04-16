@@ -7,7 +7,7 @@ class Seminaire{
     private $resumer;
     private $lieu;
     private $date;
-    private $id_interveant;
+    private $intervenant;
 
     public function __construct(array $data = []){
 
@@ -33,7 +33,7 @@ class Seminaire{
 
 	public function getDate() {return $this->date;}
 
-	public function getIdInterveant() {return $this->id_interveant;}
+	public function getIntervenant() {return $this->intervenant;}
 
     
 	public function setId( $id): void {$this->id = $id;}
@@ -46,7 +46,7 @@ class Seminaire{
 
 	public function setDate( $date): void {$this->date = $date;}
 
-	public function setIdInterveant( $id_interveant): void {$this->id_interveant = $id_interveant;}
+	public function setIntervenant( $intervenant): void {$this->intervenant = $intervenant;}
 
 	
 
