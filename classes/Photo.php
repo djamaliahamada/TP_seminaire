@@ -1,30 +1,40 @@
 <?php
 class Photo {
-    
-    private $id;
-    private $intervenant_id; // Identifiant de l'intervenant auquel la photo est associée
-    private $chemin; // Chemin vers le fichier de la photo
 
-    public function __construct(int $id, int $intervenant_id, string $chemin) {
-        $this->id = $id;
-        $this->intervenant_id = $intervenant_id;
-        $this->chemin = $chemin;
+    private $id;
+    private $intervenant_id;
+    private $chemin;
+
+    public function __construct(array $data = []) {
+        foreach($data as $key => $value) {
+            $method = "set" . ucfirst($key);
+            if(method_exists($this, $method)) {
+                $this->$method($value);
+            }
+        }
     }
 
-    // Getters et setters
-    public function getId(): int {
+    public function getId() {
         return $this->id;
     }
 
-    public function getIntervenantId(): int {
+    public function getIntervenantId() {
         return $this->intervenant_id;
     }
 
-    public function getChemin(): string {
+    public function getChemin() {
         return $this->chemin;
     }
 
-    public function setChemin(string $chemin): void {
+    public function setId($id): void {
+        $this->id = $id;
+    }
+
+    public function setIntervenantId($intervenant_id): void {
+        $this->intervenant_id = $intervenant_id;
+    }
+
+    public function setChemin($chemin): void {
         $this->chemin = $chemin;
     }
 }

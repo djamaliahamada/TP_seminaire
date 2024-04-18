@@ -46,7 +46,7 @@ class InterveantModel extends AbstractModel {
 
         return $tab;
     }
-    
+
     /**
      * Récupère un intervenant par son identifiant depuis la base de données.
      *
@@ -57,21 +57,21 @@ class InterveantModel extends AbstractModel {
         $stmt = $this->executerReq("SELECT * FROM intervenant WHERE id = :id", ["id" => $id]);
 
         $res = $stmt->fetch();
-    if($res !== false) { // Vérifie si des données ont été récupérées
-    extract($res);
-    // Crée un objet Intervenant et attribue les valeurs extraites
-    $inter = new Intervenant();
-    $inter->setId($id);
-    $inter->setNom($nom);
-    $inter->setPrenom($prenom);
-    $inter->setAffectation($affectation);
-    $inter->setUrlPagePerso($url_page_perso);
+        if($res !== false) { // Vérifie si des données ont été récupérées
+            extract($res);
+            // Crée un objet Intervenant et attribue les valeurs extraites
+            $inter = new Intervenant();
+            $inter->setId($id);
+            $inter->setNom($nom);
+            $inter->setPrenom($prenom);
+            $inter->setAffectation($affectation);
+            $inter->setUrlPagePerso($url_page_perso);
 
-    return $inter;
-} else {
-    // Gérer le cas où aucun intervenant n'est trouvé pour cet ID
-    return null;
-}
+            return $inter;
+        } else {
+            // Gérer le cas où aucun intervenant n'est trouvé pour cet ID
+            return null;
+        }
 
         extract($res);
         $inter = new Intervenant();
@@ -118,6 +118,4 @@ class InterveantModel extends AbstractModel {
         return true;
 
     }
-
-
 }

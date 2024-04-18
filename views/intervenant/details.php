@@ -1,32 +1,44 @@
-<h2>Détails de l'intervenant</h2>
-
-<?php if (!empty($inter)) : ?>
-    <p>Nom: <?= $inter->getNom(); ?></p>
-    <p>Prénom: <?= $inter->getPrenom(); ?></p>
-    <p>Affectation: <?= $inter->getAffectation(); ?></p>
-    <p>Url Page Perso: <?= $inter->getUrlPagePerso(); ?></p>
-
-    <h3>Photos associées</h3>
-    <?php if (!empty($photos)) : ?>
-        <div class="photos">
-            <?php foreach ($photos as $photo) : ?>
-                <img src="<?= $photo->getChemin(); ?>" alt="Photo de l'intervenant">
-            <?php endforeach; ?>
-        </div>
-    <?php else : ?>
-        <p>Aucune photo associée à cet intervenant.</p>
-    <?php endif; ?>
-
-<?php else : ?>
-    <p>Aucun intervenant trouvé.</p>
-<?php endif; ?>
-<br>
-<h2 class="text-center">Ajouter une photo à l'intervenant <?= $inter->getNom() . ' ' . $inter->getPrenom(); ?></h2>
-<form action="?action=ajouterPhoto&id=<?= $inter->getId(); ?>" method="post" enctype="multipart/form-data">
+<h2 class="text-center">Details de l'intervenant <span class="badge bg-danger"><?= $inter->getId();?></span></s> </h2>
+<form action="" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="id" value="<?= !empty($inter) ? $inter->getId() : ''; ?>">
     <div class="form-group">
         <label for="photo">Sélectionnez une photo :</label>
         <input type="file" class="form-control-file" id="photo" name="photo" accept="image/*" required>
     </div>
     <button type="submit" class="btn btn-primary" name="uploadPhoto">Ajouter</button>
 </form>
+<br>
+<div class="form-group">
+    <label for="exampleInputEmail1">Nom</label>
+    <input type="text" disabled class="form-control" value="<?= !empty($inter) ? $inter->getNom() : ''; ?>">         
+</div>
+<div class="form-group">
+    <label for="exampleInputEmail1">Prénom</label>
+    <input type="text" disabled class="form-control"  value="<?= !empty($inter) ? $inter->getPrenom() : ''; ?>">
+</div>
+<div class="form-group">
+    <label for="exampleInputEmail1">Affectation</label>
+    <input type="text" disabled class="form-control"   value="<?= !empty($inter) ? $inter->getAffectation() : ''; ?>">
+</div>
+<div class="form-group">
+    <label for="exampleInputEmail1">Url</label>
+    <input type="text" disabled class="form-control"   value="<?= !empty($inter) ? $inter->getUrlPagePerso() : ''; ?>">
+</div>
 
+<div class="form-group">
+    <label for="exampleInputEmail1"><h2>Photos associées</h2></label>
+    <br>
+    <div class="photos">
+        <?php if (!empty($photos)) : ?>
+            <div class="row">
+                <div class="col">
+                    <?php foreach ($photos as $photo) : ?>
+                        <img src="public/photo/<?php echo $photo->getChemin();?>" class="img-thumbnail" alt="Photo de l'intervenant" style="width:200px;">
+                    <?php endforeach; ?>
+                </div>
+            </div>
+        <?php else : ?>
+            <p>Aucune photo associée à cet intervenant.</p>
+        <?php endif; ?>
+    </div>
+</div>

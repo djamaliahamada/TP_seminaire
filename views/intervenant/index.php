@@ -19,7 +19,7 @@
                 <td> 
                     <a href="?action=deleteIntervenant&id=<?= $inter->getId(); ?>" class="btn btn-danger">supp</a>
                     <a href="?action=updateIntervenant&id=<?= $inter->getId(); ?>" class="btn btn-primary">mod</a>
-                    <a href="?action=detailsIntervenant&id=<?= $inter->getId(); ?>" class="btn btn-info">Détails</a>
+                    <a href="?action=detailsIntervenant&id=<?= $inter->getId(); ?>" class="btn btn-info">Details</a>
                 </td>
             </tr>
         <?php endforeach; ?>

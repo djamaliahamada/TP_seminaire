@@ -1,70 +1,41 @@
 <?php
-
 class PhotoModel extends AbstractModel {
 
     /**
-     * Ajoute une photo à la base de données.
+     * Insère une photo dans la base de données.
      *
-     * @param Photo $photo L'objet photo à ajouter.
-     * @return bool True si l'ajout est réussi, sinon false.
+     * @param Photo $photo L'objet photo à insérer.
+     * @return bool True si l'insertion est réussie, sinon false.
      */
-    public function addPhoto(Photo $photo) {
+    public function insertPhoto(Photo $photo) {
+        // Récupérer le dossier de destination
         $query = "INSERT INTO photo (intervenant_id, chemin) VALUES (:intervenant_id, :chemin)";
 
         // Exécute la requête SQL avec les valeurs fournies.
         $this->executerReq($query, [
             "intervenant_id" => $photo->getIntervenantId(),
             "chemin" => $photo->getChemin()
-        ]);
+        ]);;
 
         return true;
     }
 
     /**
-     * Récupère toutes les photos associées à un intervenant donné.
+     * Récupère toutes les photos d'un intervenant depuis la base de données.
      *
-     * @param int $intervenantId L'identifiant de l'intervenant.
-     * @return array Tableau contenant tous les objets photo associés à l'intervenant.
+     * @param int $intervenant_id L'identifiant de l'intervenant.
+     * @return array Tableau contenant tous les objets de photos de l'intervenant.
      */
-    public function getPhotosByIntervenantId($intervenantId) {
-        $stmt = $this->executerReq("SELECT * FROM photo WHERE intervenant_id = :intervenant_id", ["intervenant_id" => $intervenantId]);
+    public function getAllPhotosByIntervenantId($intervenant_id) {
+        $stmt = $this->executerReq("SELECT * FROM photo WHERE intervenant_id = :intervenant_id", ["intervenant_id" => $intervenant_id]);
 
-        $tab = [];
+        $photos = [];
 
         while ($res = $stmt->fetch()) {
-            extract($res);
-            $photo = new Photo();
-            $photo->setId($id);
-            $photo->setIntervenantId($intervenant_id);
-            $photo->setChemin($chemin);
-
-            $tab[] = $photo;
+            $photo = new Photo($res);
+            $photos[] = $photo;
         }
 
-        return $tab;
+        return $photos;
     }
-
-    public function getIntervenantById($id){
-        $stmt = $this->executerReq("SELECT * FROM intervenant WHERE id = :id", ["id" => $id]);
-
-        $res = $stmt->fetch();
-    if($res !== false) { // Vérifie si des données ont été récupérées
-    extract($res);
-    // Crée un objet Intervenant et attribue les valeurs extraites
-   
-    $inter = new Intervenant();
-    $inter->setId($id);
-    $inter->setNom($nom);
-    $inter->setPrenom($prenom);
-    $inter->setAffectation($affectation);
-    $inter->setUrlPagePerso($url_page_perso);
-
-    return $inter;
-
-
-}  
-}
-
-
-
 }
